@@ -33,3 +33,17 @@ std::string FromPkmnEvolutionTypeToString(PokemonEvolutionType pkmnEvolutionType
 		case PokemonEvolutionType::final: return "Finale";
 	}
 }
+
+std::string FromPkmnCharacteristicsToString(Characteristics pkmnCharacteristics)
+{
+	switch (pkmnCharacteristics)
+	{
+		case Characteristics::twoLegs : return "Two Legs";
+		case Characteristics::fourLegs : return "Four Legs";
+		case Characteristics::noLegs : return "No Legs";
+		case Characteristics::legend : return "A Legend";
+		case Characteristics::starter : return "A Starter";
+		case Characteristics::hasArms : return "Arms";
+		case Characteristics::hasTail : return "A Tail";
+	}
+}

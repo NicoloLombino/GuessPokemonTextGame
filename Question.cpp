@@ -32,6 +32,17 @@ void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck) // IT W
 	CheckQuestionEvolutionType(pokemonListToCheck, choice, index);
 }
 
+void DoQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck)
+{
+	std::cout << "The Pokemon has " << FromPkmnCharacteristicsToString(characteristicsToCheck) << "?";
+
+	int choice = 8;
+	std::cin >> choice;
+
+	int index = 0;
+	CheckQuestionCharacteristics(pokemonListToCheck, characteristicsToCheck, choice, index);
+}
+
 void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int choice, int index)  // IT WORKS
 {
 	bool removed = false;
@@ -82,9 +93,9 @@ void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType t
 	{
 		if (choice == 0)  // NO
 		{
-			for (int j = 0; j < pokemonListToCheck[i].tempTypes.size(); j++)
+			for (int j = 0; j < pokemonListToCheck[i].pokemonTypes.size(); j++)
 			{
-				if (pokemonListToCheck[i].tempTypes[j] == typeToCheck)
+				if (pokemonListToCheck[i].pokemonTypes[j] == typeToCheck)
 				{
 					pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
 					removed = true;
@@ -103,20 +114,82 @@ void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType t
 		}
 		else if (choice == 1)  // YES
 		{
-			for (PokemonType type : pokemonListToCheck[i].tempTypes)
+			for (int j = 0; j < pokemonListToCheck[i].pokemonTypes.size(); j++)
 			{
-				if (type == typeToCheck)
+				if (pokemonListToCheck[i].pokemonTypes[j] == typeToCheck)
+				{
+					index++;
+					removed = false;
+					break;
+				}
+				else
+				{
+					removed = true;
+				}
+			}
+			if (removed)
+			{
+				pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
+				removed = true;
+				index = 0;
+				break;
+			}
+		}
+	}
+
+	if (removed)
+	{
+		CheckQuestionType(pokemonListToCheck, typeToCheck, choice, index);
+	}
+}
+
+void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck, int choice, int index)
+{
+	bool removed = false;
+	for (int i = 0; i < pokemonListToCheck.size(); i++)
+	{
+		if (choice == 0)  // NO
+		{
+			for (int j = 0; j < pokemonListToCheck[i].pokemonTypes.size(); j++)
+			{
+				if (pokemonListToCheck[i].pokemonTypes[j] == characteristicsToCheck)
 				{
 					pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
 					removed = true;
 					index = 0;
 					break;
 				}
-				else
+			}
+			if (!removed)
+			{
+				index++;
+			}
+			else
+			{
+				break;
+			}
+		}
+		else if (choice == 1)  // YES
+		{
+			for (int j = 0; j < pokemonListToCheck[i].pokemonTypes.size(); j++)
+			{
+				if (pokemonListToCheck[i].pokemonTypes[j] == typeToCheck)
 				{
 					index++;
-					continue;
+					removed = false;
+					break;
 				}
+				else
+				{
+					removed = true;
+				}
+			}
+			if (removed)
+			{
+				pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
+				removed = true;
+				index = 0;
+				break;
 			}
 		}
 	}

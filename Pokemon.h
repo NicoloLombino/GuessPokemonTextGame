@@ -36,14 +36,11 @@ enum Characteristics
 {
 	twoLegs,
 	fourLegs,
-	zeroLegs,
+	noLegs,
 	legend,
-	blue,
-	red,
-	green,
-	yellow,
 	starter,
-	hasArms
+	hasArms,
+	hasTail
 };
 
 
@@ -51,47 +48,30 @@ class MyPokemon
 {
 public:
 
-	MyPokemon(std::string pkmnName, std::vector<PokemonType> tempTypes, PokemonEvolutionType pkmnEvolutionType)
+	MyPokemon(std::string pkmnName, std::vector<PokemonType> pkmnTypes, PokemonEvolutionType pkmnEvolutionType, std::vector<Characteristics> pkmnCharacteristics)
 	{
 		this->name = pkmnName;
 		this->pokemonEvolutionType = pkmnEvolutionType;
-		this->tempTypes = tempTypes;
+		this->pokemonTypes = pkmnTypes;
+		this->pokemonCharacteristics = pkmnCharacteristics;
 	}
 
 	std::string name;
-	std::initializer_list<PokemonType> pokemonType;
 	PokemonEvolutionType pokemonEvolutionType;
-	std::vector<PokemonType> tempTypes;
+	std::vector<PokemonType> pokemonTypes;
+	std::vector<Characteristics> pokemonCharacteristics;
 
 	std::string GetName()
 	{
 		return name;
 	}
 
-	PokemonType GetTypes(int index)
-	{
-		auto type = pokemonType.begin();
-		std::advance(type, 0);
-		return *type;
-	}
-
 	PokemonEvolutionType GetEvolutionType()
 	{
 		return pokemonEvolutionType;
 	}
-
-	std::initializer_list<PokemonType> GetPokemonTypeList()
-	{
-		return pokemonType;
-	}
-
-	std::vector<PokemonType> GetListOfPokemonType()
-	{
-		std::vector<PokemonType> pokemonVector(pokemonType);
-		return pokemonVector;
-	}
-
 };
 
 std::string FromPkmnTypeToString(PokemonType pkmnTypeToUse);
 std::string FromPkmnEvolutionTypeToString(PokemonEvolutionType pkmnEvolutionTypeToUse);
+std::string FromPkmnCharacteristicsToString(Characteristics pkmnCharacteristics);
