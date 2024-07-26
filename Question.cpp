@@ -150,9 +150,9 @@ void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Ch
 	{
 		if (choice == 0)  // NO
 		{
-			for (int j = 0; j < pokemonListToCheck[i].pokemonTypes.size(); j++)
+			for (int j = 0; j < pokemonListToCheck[i].pokemonCharacteristics.size(); j++)
 			{
-				if (pokemonListToCheck[i].pokemonTypes[j] == characteristicsToCheck)
+				if (pokemonListToCheck[i].pokemonCharacteristics[j] == characteristicsToCheck)
 				{
 					pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
 					removed = true;
@@ -171,9 +171,9 @@ void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Ch
 		}
 		else if (choice == 1)  // YES
 		{
-			for (int j = 0; j < pokemonListToCheck[i].pokemonTypes.size(); j++)
+			for (int j = 0; j < pokemonListToCheck[i].pokemonCharacteristics.size(); j++)
 			{
-				if (pokemonListToCheck[i].pokemonTypes[j] == typeToCheck)
+				if (pokemonListToCheck[i].pokemonCharacteristics[j] == characteristicsToCheck)
 				{
 					index++;
 					removed = false;
@@ -196,6 +196,6 @@ void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Ch
 
 	if (removed)
 	{
-		CheckQuestionType(pokemonListToCheck, typeToCheck, choice, index);
+		CheckQuestionCharacteristics(pokemonListToCheck, characteristicsToCheck, choice, index);
 	}
 }
