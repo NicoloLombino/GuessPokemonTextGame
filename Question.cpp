@@ -10,22 +10,18 @@ bool operator==(const MyPokemon& lhs, const MyPokemon& rhs)
 	return false;
 }
 
-// DOMANDA P£R IL TIPO
-// IN QUESTO CASO IL TIPO DEI POKEMON RITORNATO E' SBAGLIATO
-void DoQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck)
+void DoQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck)  // IT WORKS
 {
-	std::cout << typeToCheck;
-	std::cin.get();
-
 	std::cout << "Il pokemon è di tipo " << FromPkmnTypeToString(typeToCheck) << "?";
+
 	int choice = 8;
 	std::cin >> choice;
+
 	int index = 0;
 	CheckQuestionType(pokemonListToCheck, typeToCheck, choice, index);
 }
 
-
-void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck) // FUNZIONA BENE
+void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck) // IT WORKS
 {
 	std::cout << "Il pokemon si può evolvere?";
 
@@ -36,20 +32,16 @@ void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck) // FUNZ
 	CheckQuestionEvolutionType(pokemonListToCheck, choice, index);
 }
 
-void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int choice, int index)  // FUNZIONA BENE
+void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int choice, int index)  // IT WORKS
 {
 	bool removed = false;
 	for (int i = 0; i < pokemonListToCheck.size(); i++)
 	{
-		std::cout << "i = " << i << std::endl;
-		//std::cin.get();
-
 
 		if (choice == 0)  // NO
 		{
 			if (pokemonListToCheck[i].GetEvolutionType() == medium || pokemonListToCheck[i].GetEvolutionType() == base)
 			{
-				std::cout << "REMOVED " << pokemonListToCheck[i].GetName() << " " << std::endl;
 				pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
 				removed = true;
 				index = 0;
@@ -58,15 +50,12 @@ void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int 
 			else
 			{
 				index++;
-				std::cout << "AUMENTO INDEX : " << index << std::endl;
-				std::cout << "RIMANE " << pokemonListToCheck[i].GetName() << " " << std::endl;
 			}
 		}
 		else if (choice == 1)  // YES
 		{
 			if (pokemonListToCheck[i].GetEvolutionType() == final)
 			{
-				std::cout << "REMOVED " << pokemonListToCheck[i].GetName() << " " << std::endl;
 				pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
 				removed = true;
 				index = 0;
@@ -74,7 +63,6 @@ void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int 
 			}
 			else
 			{
-				std::cout << "RIMANE " << pokemonListToCheck[i].GetName() << " " << std::endl;
 				index++;
 				continue;
 			}
@@ -87,24 +75,17 @@ void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int 
 	}
 }
 
-void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck, int choice, int index)
+void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck, int choice, int index)  // IT WORKS
 {
 	bool removed = false;
 	for (int i = 0; i < pokemonListToCheck.size(); i++)
 	{
-		//std::cin.get();
-
 		if (choice == 0)  // NO
 		{
-			std::cout << "i = " << i << " index = " << index << std::endl;
-			std::cout << "POKEMON " << pokemonListToCheck[i].GetName() << " " << std::endl;
-
 			for (int j = 0; j < pokemonListToCheck[i].tempTypes.size(); j++)
 			{
-				std::cout << "Type = " << pokemonListToCheck[i].tempTypes[j] << " CHECK = " << typeToCheck << std::endl;
 				if (pokemonListToCheck[i].tempTypes[j] == typeToCheck)
 				{
-					std::cout << "REMOVED " << pokemonListToCheck[i].GetName() << " " << std::endl;
 					pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
 					removed = true;
 					index = 0;
@@ -114,7 +95,6 @@ void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType t
 			if (!removed)
 			{
 				index++;
-				std::cout << "AUMENTO INDEX : " << index << std::endl;
 			}
 			else
 			{

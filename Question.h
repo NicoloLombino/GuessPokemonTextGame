@@ -89,9 +89,6 @@ class QuestionLegend : QuestionBase
 
 void DoQuestion(std::vector<MyPokemon>);
 
-// Definizione dell'operatore di confronto ==
-bool operator==(const MyPokemon& lhs, const MyPokemon& rhs);
-
 void DoQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck);
 void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck);
 
