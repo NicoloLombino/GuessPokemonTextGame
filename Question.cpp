@@ -34,7 +34,7 @@ void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck) // IT W
 
 void DoQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck)
 {
-	std::cout << "The Pokemon has " << FromPkmnCharacteristicsToString(characteristicsToCheck) << "?";
+	std::cout << "The Pokemon " << FromPkmnCharacteristicsToString(characteristicsToCheck) << "?";
 
 	int choice = 8;
 	std::cin >> choice;

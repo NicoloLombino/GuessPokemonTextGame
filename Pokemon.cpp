@@ -38,12 +38,14 @@ std::string FromPkmnCharacteristicsToString(Characteristics pkmnCharacteristics)
 {
 	switch (pkmnCharacteristics)
 	{
-		case Characteristics::twoLegs : return "Two Legs";
-		case Characteristics::fourLegs : return "Four Legs";
-		case Characteristics::noLegs : return "No Legs";
-		case Characteristics::legend : return "A Legend";
+		case Characteristics::twoLegs : return "Has Two Legs";
+		case Characteristics::fourLegs : return "Has Four Legs";
+		case Characteristics::noLegs : return "Has No Legs";
+		case Characteristics::legend : return "Is A Legend";
 		case Characteristics::starter : return "A Starter";
-		case Characteristics::hasArms : return "Arms";
-		case Characteristics::hasTail : return "A Tail";
+		case Characteristics::hasArms : return "Has Arms";
+		case Characteristics::hasTail : return "Has A Tail";
+		case Characteristics::intermediate : return "Is An Intermediate Pokemon";
+		case Characteristics::secondStage : return "Is A Second-Stage Pokemon";
 	}
 }

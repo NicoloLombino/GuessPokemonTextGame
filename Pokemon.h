@@ -40,7 +40,9 @@ enum Characteristics
 	legend,
 	starter,
 	hasArms,
-	hasTail
+	hasTail,
+	intermediate,
+	secondStage
 };
 
 
