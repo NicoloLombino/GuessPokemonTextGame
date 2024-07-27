@@ -6,6 +6,7 @@
 
 enum PokemonType
 {
+	noType,
 	water,
 	fire,
 	grass,
@@ -21,12 +22,12 @@ enum PokemonType
 	steel,
 	ice,
 	ghost,
-	dragon,
-	none
+	dragon
 };
 
 enum PokemonEvolutionType
 {
+	noEvolution,
 	base,
 	medium,
 	final
@@ -34,6 +35,7 @@ enum PokemonEvolutionType
 
 enum Characteristics
 {
+	noCharacteristics,
 	twoLegs,
 	fourLegs,
 	noLegs,
@@ -49,7 +51,10 @@ enum Characteristics
 class MyPokemon
 {
 public:
+	MyPokemon()
+	{
 
+	}
 	MyPokemon(std::string pkmnName, std::vector<PokemonType> pkmnTypes, PokemonEvolutionType pkmnEvolutionType, std::vector<Characteristics> pkmnCharacteristics)
 	{
 		this->name = pkmnName;

@@ -89,11 +89,11 @@ class QuestionLegend : QuestionBase
 
 void DoQuestion(std::vector<MyPokemon>);
 
-void DoQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck);
-void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck, int choice, int index);
+void DoQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck, MyPokemon &pkmnToCheck);
+void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck, int choice, int index, MyPokemon &pkmnToCheck);
 
-void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck);
-void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int choice, int index);
+void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, MyPokemon &pkmnToCheck);
+void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int choice, int index, MyPokemon &pkmnToCheck);
 
-void DoQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck);
-void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck, int choice, int index);
+void DoQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck, MyPokemon &pkmnToCheck);
+void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck, int choice, int index, MyPokemon &pkmnToCheck);

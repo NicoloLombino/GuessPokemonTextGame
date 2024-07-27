@@ -20,7 +20,7 @@ std::string FromPkmnTypeToString(PokemonType pkmnTypeToUse)
 		case PokemonType::ice: return "Ghiaccio";
 		case PokemonType::ghost: return "Spettro";
 		case PokemonType::dragon: return "Drago";
-		case PokemonType::none: return "None";
+		case PokemonType::noType: return "None";
 	}
 }
 
@@ -42,10 +42,10 @@ std::string FromPkmnCharacteristicsToString(Characteristics pkmnCharacteristics)
 		case Characteristics::fourLegs : return "Has Four Legs";
 		case Characteristics::noLegs : return "Has No Legs";
 		case Characteristics::legend : return "Is A Legend";
-		case Characteristics::starter : return "A Starter";
+		case Characteristics::starter : return "Is A Starter";
 		case Characteristics::hasArms : return "Has Arms";
 		case Characteristics::hasTail : return "Has A Tail";
-		case Characteristics::intermediate : return "Is An Intermediate Pokemon";
+		case Characteristics::intermediate : return "Is An Middle-Stage Pokemon";
 		case Characteristics::secondStage : return "Is A Second-Stage Pokemon";
 	}
 }

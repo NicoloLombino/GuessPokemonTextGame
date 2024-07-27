@@ -10,7 +10,7 @@ bool operator==(const MyPokemon& lhs, const MyPokemon& rhs)
 	return false;
 }
 
-void DoQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck)  // IT WORKS
+void DoQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck, MyPokemon &pkmnToCheck)  // IT WORKS
 {
 	std::cout << "Il pokemon è di tipo " << FromPkmnTypeToString(typeToCheck) << "?";
 
@@ -18,10 +18,10 @@ void DoQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType type
 	std::cin >> choice;
 
 	int index = 0;
-	CheckQuestionType(pokemonListToCheck, typeToCheck, choice, index);
+	CheckQuestionType(pokemonListToCheck, typeToCheck, choice, index, pkmnToCheck);
 }
 
-void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck) // IT WORKS
+void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, MyPokemon &pkmnToCheck) // IT WORKS
 {
 	std::cout << "Il pokemon si può evolvere?";
 
@@ -29,10 +29,10 @@ void DoQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck) // IT W
 	std::cin >> choice;
 
 	int index = 0;
-	CheckQuestionEvolutionType(pokemonListToCheck, choice, index);
+	CheckQuestionEvolutionType(pokemonListToCheck, choice, index, pkmnToCheck);
 }
 
-void DoQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck)
+void DoQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck, MyPokemon &pkmnToCheck)
 {
 	std::cout << "The Pokemon " << FromPkmnCharacteristicsToString(characteristicsToCheck) << "?";
 
@@ -40,10 +40,10 @@ void DoQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Chara
 	std::cin >> choice;
 
 	int index = 0;
-	CheckQuestionCharacteristics(pokemonListToCheck, characteristicsToCheck, choice, index);
+	CheckQuestionCharacteristics(pokemonListToCheck, characteristicsToCheck, choice, index, pkmnToCheck);
 }
 
-void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int choice, int index)  // IT WORKS
+void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int choice, int index, MyPokemon &pkmnToCheck)  // IT WORKS
 {
 	bool removed = false;
 	for (int i = 0; i < pokemonListToCheck.size(); i++)
@@ -54,6 +54,7 @@ void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int 
 			if (pokemonListToCheck[i].GetEvolutionType() == medium || pokemonListToCheck[i].GetEvolutionType() == base)
 			{
 				pokemonListToCheck.erase((pokemonListToCheck.begin() + index));
+				pkmnToCheck.pokemonEvolutionType = final;
 				removed = true;
 				index = 0;
 				break;
@@ -82,11 +83,11 @@ void CheckQuestionEvolutionType(std::vector<MyPokemon>& pokemonListToCheck, int 
 
 	if (removed)
 	{
-		CheckQuestionEvolutionType(pokemonListToCheck, choice, index);
+		CheckQuestionEvolutionType(pokemonListToCheck, choice, index, pkmnToCheck);
 	}
 }
 
-void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck, int choice, int index)  // IT WORKS
+void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType typeToCheck, int choice, int index, MyPokemon &pkmnToCheck)  // IT WORKS
 {
 	bool removed = false;
 	for (int i = 0; i < pokemonListToCheck.size(); i++)
@@ -120,6 +121,11 @@ void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType t
 				{
 					index++;
 					removed = false;
+					if (!(std::find(pkmnToCheck.pokemonTypes.begin(), pkmnToCheck.pokemonTypes.end(),
+						typeToCheck) != pkmnToCheck.pokemonTypes.end()))
+					{
+						pkmnToCheck.pokemonTypes.push_back(typeToCheck);
+					}
 					break;
 				}
 				else
@@ -139,11 +145,11 @@ void CheckQuestionType(std::vector<MyPokemon>& pokemonListToCheck, PokemonType t
 
 	if (removed)
 	{
-		CheckQuestionType(pokemonListToCheck, typeToCheck, choice, index);
+		CheckQuestionType(pokemonListToCheck, typeToCheck, choice, index, pkmnToCheck);
 	}
 }
 
-void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck, int choice, int index)
+void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Characteristics characteristicsToCheck, int choice, int index, MyPokemon &pkmnToCheck)
 {
 	bool removed = false;
 	for (int i = 0; i < pokemonListToCheck.size(); i++)
@@ -176,6 +182,11 @@ void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Ch
 				if (pokemonListToCheck[i].pokemonCharacteristics[j] == characteristicsToCheck)
 				{
 					index++;
+					if (!(std::find(pkmnToCheck.pokemonCharacteristics.begin(), pkmnToCheck.pokemonCharacteristics.end(), 
+						characteristicsToCheck) != pkmnToCheck.pokemonCharacteristics.end()))
+					{
+						pkmnToCheck.pokemonCharacteristics.push_back(characteristicsToCheck);
+					}
 					removed = false;
 					break;
 				}
@@ -196,6 +207,6 @@ void CheckQuestionCharacteristics(std::vector<MyPokemon>& pokemonListToCheck, Ch
 
 	if (removed)
 	{
-		CheckQuestionCharacteristics(pokemonListToCheck, characteristicsToCheck, choice, index);
+		CheckQuestionCharacteristics(pokemonListToCheck, characteristicsToCheck, choice, index, pkmnToCheck);
 	}
 }
