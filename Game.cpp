@@ -14,6 +14,60 @@
 #include <algorithm>
 
 
+void CheckQuestionAndRemoveSimilar(std::vector<int> questionToRemove, std::vector<int> &QuestionDone)
+{
+	QuestionDone.insert(QuestionDone.end(), questionToRemove.begin(), questionToRemove.end());
+}
+
+bool CheckPokemonCharacteristics(MyPokemon &pokemonToCheck, std::vector<Characteristics> characteristicsToCkeck)
+{
+	for (Characteristics characteristics : characteristicsToCkeck)
+	{
+		if ((std::find(pokemonToCheck.pokemonCharacteristics.begin(), pokemonToCheck.pokemonCharacteristics.end(), characteristics) != pokemonToCheck.pokemonCharacteristics.end()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void CheckCharacteristicAndRemoveQuestion(std::vector<MyPokemon> &pokemonListToCheck, std::vector<int>& QuestionDone, Characteristics characteristicToChek, int questionToRemove)
+{
+	for (MyPokemon pokemon : pokemonListToCheck)
+	{
+		if (!(std::find(pokemon.pokemonCharacteristics.begin(), pokemon.pokemonCharacteristics.end(), characteristicToChek) != pokemon.pokemonCharacteristics.end()))
+		{
+			std::cout << "NON HANNO " << characteristicToChek << std::endl;
+
+			if (!(std::find(QuestionDone.begin(), QuestionDone.end(), questionToRemove) != QuestionDone.end()))
+			{
+				QuestionDone.push_back(questionToRemove);
+				break;
+			}
+		}
+	}
+}
+
+void CheckAllCharacteristicInPokemonList(std::vector<MyPokemon>& pokemonListToCheck, std::vector<int>& QuestionDone)
+{
+	// for each characteristic, if the list don't contain this, is useless to ask
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, legend, 21);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, starter, 23);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, hasArms, 22);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, secondStage, 25);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, middleStage, 24);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, hasTail, 20);
+
+	std::cout << "LISTA DOMANDE!";
+	std::sort(QuestionDone.begin(), QuestionDone.end());
+	for (int a : QuestionDone)
+	{
+		std::cout << a << " ";
+	}
+
+
+}
+
 int main()
 {
 	std::cout << "Welcome to my Game!";
@@ -28,7 +82,7 @@ int main()
 	// i am sorry to write this...
 	bool hasType = false;
 	bool hasEvolutionType = false;
-	bool hasEvolutionType2 = false;
+	bool hasEvolutionStage = false;
 	bool hasLegs = false;
 
 	std::vector<int> QuestionDone;
@@ -50,25 +104,28 @@ int main()
 			if (!hasType && pokemonToCheck.pokemonTypes.size() == 2)
 			{
 				hasType = true;
-				std::vector<int> questionToRemove = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-				QuestionDone.insert(QuestionDone.end(), questionToRemove.begin(), questionToRemove.end());
+				CheckQuestionAndRemoveSimilar({ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, QuestionDone);
 			}
 			if (!hasEvolutionType && pokemonToCheck.pokemonEvolutionType == final)
 			{
 				hasEvolutionType = true;
-				std::vector<int> questionToRemove = { 16, 24 };
-				QuestionDone.insert(QuestionDone.end(), questionToRemove.begin(), questionToRemove.end());
+				CheckQuestionAndRemoveSimilar({ 16, 24 }, QuestionDone);
 			}
-			if (!hasLegs && ((std::find(pokemonToCheck.pokemonCharacteristics.begin(), pokemonToCheck.pokemonCharacteristics.end(), fourLegs) != pokemonToCheck.pokemonCharacteristics.end() ||
-				std::find(pokemonToCheck.pokemonCharacteristics.begin(), pokemonToCheck.pokemonCharacteristics.end(), twoLegs) != pokemonToCheck.pokemonCharacteristics.end() ||
-				std::find(pokemonToCheck.pokemonCharacteristics.begin(), pokemonToCheck.pokemonCharacteristics.end(), noLegs) != pokemonToCheck.pokemonCharacteristics.end())))
+			if (!hasEvolutionStage && CheckPokemonCharacteristics(pokemonToCheck, {middleStage, secondStage}))
+			{
+				hasEvolutionStage = true;
+				CheckQuestionAndRemoveSimilar({ 16, 24, 25 }, QuestionDone);
+			}
+			if (!hasLegs && CheckPokemonCharacteristics(pokemonToCheck, {noLegs, twoLegs, fourLegs}))
 			{
 				hasLegs = true;
-				std::vector<int> questionToRemove = { 17, 18, 19 };
-				QuestionDone.insert(QuestionDone.end(), questionToRemove.begin(), questionToRemove.end());
+				CheckQuestionAndRemoveSimilar({ 17, 18, 19 }, QuestionDone);
 			}
+
+			CheckAllCharacteristicInPokemonList(Pokemons, QuestionDone);
 			// end to check pokemon to guess info
 
+			// Check questions and do random
 			std::uniform_int_distribution<> distrib(0, 26);
 			randomQuestion = distrib(gen);
 
@@ -80,7 +137,7 @@ int main()
 		} 
 		while (!questionFind);
 
-		 //CONTROLLI TEMPORANEI
+		 //CONTROLLI TEMPORANEI  --> DA ELIMINARE
 		int temp = 0;
 		std::cin >> temp;
 
@@ -130,7 +187,7 @@ int main()
 			case 21: DoQuestionCharacteristics(Pokemons, legend, pokemonToCheck); break;
 			case 22: DoQuestionCharacteristics(Pokemons, hasArms, pokemonToCheck); break;
 			case 23: DoQuestionCharacteristics(Pokemons, starter, pokemonToCheck); break;
-			case 24: DoQuestionCharacteristics(Pokemons, intermediate, pokemonToCheck); break;
+			case 24: DoQuestionCharacteristics(Pokemons, middleStage, pokemonToCheck); break;
 			case 25: DoQuestionCharacteristics(Pokemons, secondStage, pokemonToCheck); break;
 		}
 

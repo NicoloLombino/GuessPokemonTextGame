@@ -45,7 +45,7 @@ std::string FromPkmnCharacteristicsToString(Characteristics pkmnCharacteristics)
 		case Characteristics::starter : return "Is A Starter";
 		case Characteristics::hasArms : return "Has Arms";
 		case Characteristics::hasTail : return "Has A Tail";
-		case Characteristics::intermediate : return "Is An Middle-Stage Pokemon";
+		case Characteristics::middleStage : return "Is An Middle-Stage Pokemon";
 		case Characteristics::secondStage : return "Is A Second-Stage Pokemon";
 	}
 }

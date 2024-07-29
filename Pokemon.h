@@ -43,7 +43,7 @@ enum Characteristics
 	starter,
 	hasArms,
 	hasTail,
-	intermediate,
+	middleStage,
 	secondStage
 };
 
