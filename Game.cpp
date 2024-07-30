@@ -13,110 +13,30 @@
 // temp
 #include <algorithm>
 
-
-void CheckQuestionAndRemoveSimilar(std::vector<int> questionToRemove, std::vector<int> &QuestionDone)
+void WriteTextInEndMode(std::string textToWrite)
 {
-	QuestionDone.insert(QuestionDone.end(), questionToRemove.begin(), questionToRemove.end());
-}
-
-bool CheckPokemonCharacteristics(MyPokemon &pokemonToCheck, std::vector<Characteristics> characteristicsToCkeck)
-{
-	for (Characteristics characteristics : characteristicsToCkeck)
-	{
-		if ((std::find(pokemonToCheck.pokemonCharacteristics.begin(), pokemonToCheck.pokemonCharacteristics.end(), characteristics) != pokemonToCheck.pokemonCharacteristics.end()))
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-void CheckCharacteristicAndRemoveQuestion(std::vector<MyPokemon> &pokemonListToCheck, std::vector<int>& QuestionDone, Characteristics characteristicToChek, int questionToRemove)
-{
-	bool characteristicFound = false;
-
-	for (MyPokemon pokemon : pokemonListToCheck)
-	{
-		if ((std::find(pokemon.pokemonCharacteristics.begin(), pokemon.pokemonCharacteristics.end(), characteristicToChek) != pokemon.pokemonCharacteristics.end()))
-		{
-			characteristicFound = true;
-			break;
-		}
-	}
-	if (!characteristicFound)
-	{
-		if (!(std::find(QuestionDone.begin(), QuestionDone.end(), questionToRemove) != QuestionDone.end()))
-		{
-			QuestionDone.push_back(questionToRemove);
-		}
-	}
-}
-
-void CheckTypeAndRemoveQuestion(std::vector<MyPokemon>& pokemonListToCheck, std::vector<int>& QuestionDone, PokemonType typeToCheck, int questionToRemove)
-{
-	bool typeFound = false;
-
-	for (MyPokemon pokemon : pokemonListToCheck)
-	{
-		if ((std::find(pokemon.pokemonTypes.begin(), pokemon.pokemonTypes.end(), typeToCheck) != pokemon.pokemonTypes.end()))
-		{
-			typeFound = true;
-			break;
-		}
-	}
-	if (!typeFound)
-	{
-		if (!(std::find(QuestionDone.begin(), QuestionDone.end(), questionToRemove) != QuestionDone.end()))
-		{
-			QuestionDone.push_back(questionToRemove);
-		}
-	}
-}
-
-void CheckAllCharacteristicInPokemonList(std::vector<MyPokemon>& pokemonListToCheck, std::vector<int>& QuestionDone)
-{
-	// for each type, if the list don't contain this, is useless to ask
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, water, 0);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, fire, 1);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, grass, 2);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, flying, 3);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, bug, 4);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, normal, 5);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, electr, 6);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, ground, 7);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, fight, 8);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, psychc, 9);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, steel, 10);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, rock, 11);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, ice, 12);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, dragon, 13);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, poison, 14);
-	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, ghost, 15);
-
-	// for each characteristic, if the list don't contain this, is useless to ask
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, twoLegs, 17);
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, fourLegs, 18);
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, noLegs, 19);
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, hasTail, 20);
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, legend, 21);
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, hasArms, 22);
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, starter, 23);
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, middleStage, 24);
-	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, secondStage, 25);
+	std::cout << "--------------" << std::endl;
+	std::cout << textToWrite << std::endl;
+	std::cout << "--------------" << std::endl;
 }
 
 int main()
 {
-	std::cout << "Welcome to my Game!";
+	std::cout << "Welcome to my Game!" << std::endl;
+	std::cout << "Think of one of the first 151 Pokemon" << std::endl;
+	std::cout << "I will try to guess it" << std::endl;
+	std::cout << std::endl;
+	std::cout << "INPUT:" << std::endl;
+	std::cout << "1 = YES" << std::endl;
+	std::cout << "0 = NO" << std::endl;
+
 	// create the pokemon list
 	std::vector<MyPokemon> Pokemons = CreatePkmnList();
 
 	// create the pokemon to check
-	std::string s = "";
-	MyPokemon pokemonToCheck;
-
-	// create the bool to see if the game has already the characteristic
+	// create the bool to see if the pokemon has already the characteristic
 	// i am sorry to write this...
+	MyPokemon pokemonToCheck;
 	bool hasEvolutionType = false;
 
 	std::vector<int> QuestionDone;
@@ -136,7 +56,7 @@ int main()
 		if (!hasEvolutionType && pokemonToCheck.pokemonEvolutionType == final)
 		{
 			hasEvolutionType = true;
-			CheckQuestionAndRemoveSimilar({ 16, 24 }, QuestionDone);
+			CheckQuestionAndRemoveSimilar({ 15, 23 }, QuestionDone);
 		}
 
 		CheckAllCharacteristicInPokemonList(Pokemons, QuestionDone);
@@ -145,7 +65,7 @@ int main()
 		do
 		{
 			// Check questions and do random
-			std::uniform_int_distribution<> distrib(0, 25);
+			std::uniform_int_distribution<> distrib(0, 24);
 			randomQuestion = distrib(gen);
 
 			if (!(std::find(QuestionDone.begin(), QuestionDone.end(), randomQuestion) != QuestionDone.end()))
@@ -155,36 +75,12 @@ int main()
 			}
 
 			// check if there are no more questions
-			if (QuestionDone.size() == 26)
+			if (QuestionDone.size() == 25)
 			{
 				isInGame = false;
 			}
 		} 
 		while (!questionFind);
-
-		 //CONTROLLI TEMPORANEI  --> DA ELIMINARE
-		int temp = 0;
-		std::cin >> temp;
-
-		if (temp == 3)
-		{
-			std::cout << "LISTA " << std::endl;
-			std::cin.get();
-			for (MyPokemon pk : Pokemons)
-			{
-				std::cout << pk.GetName() << std::endl;
-			}
-		}
-		else if (temp == 4)
-		{
-			std::cout << "DOMANDE" << std::endl;
-			std::cin.get();
-			std::sort(QuestionDone.begin(), QuestionDone.end());
-			for (int a : QuestionDone)
-			{
-				std::cout << a << " ";
-			}
-		}
 
 		switch (randomQuestion)
 		{
@@ -198,22 +94,21 @@ int main()
 			case 7: DoQuestionType(Pokemons, ground, pokemonToCheck); break;
 			case 8: DoQuestionType(Pokemons, fight, pokemonToCheck); break;
 			case 9: DoQuestionType(Pokemons, psychc, pokemonToCheck); break;
-			case 10: DoQuestionType(Pokemons, steel, pokemonToCheck); break;
-			case 11: DoQuestionType(Pokemons, rock, pokemonToCheck); break;
-			case 12: DoQuestionType(Pokemons, ice, pokemonToCheck); break;
-			case 13: DoQuestionType(Pokemons, dragon, pokemonToCheck); break;
-			case 14: DoQuestionType(Pokemons, poison, pokemonToCheck); break;
-			case 15: DoQuestionType(Pokemons, ghost, pokemonToCheck); break;
-			case 16: DoQuestionEvolutionType(Pokemons, pokemonToCheck); break;
-			case 17: DoQuestionCharacteristics(Pokemons, twoLegs, pokemonToCheck); break;
-			case 18: DoQuestionCharacteristics(Pokemons, fourLegs, pokemonToCheck); break;
-			case 19: DoQuestionCharacteristics(Pokemons, noLegs, pokemonToCheck); break;
-			case 20: DoQuestionCharacteristics(Pokemons, hasTail, pokemonToCheck); break;
-			case 21: DoQuestionCharacteristics(Pokemons, legend, pokemonToCheck); break;
-			case 22: DoQuestionCharacteristics(Pokemons, hasArms, pokemonToCheck); break;
-			case 23: DoQuestionCharacteristics(Pokemons, starter, pokemonToCheck); break;
-			case 24: DoQuestionCharacteristics(Pokemons, middleStage, pokemonToCheck); break;
-			case 25: DoQuestionCharacteristics(Pokemons, secondStage, pokemonToCheck); break;
+			case 10: DoQuestionType(Pokemons, rock, pokemonToCheck); break;
+			case 11: DoQuestionType(Pokemons, ice, pokemonToCheck); break;
+			case 12: DoQuestionType(Pokemons, dragon, pokemonToCheck); break;
+			case 13: DoQuestionType(Pokemons, poison, pokemonToCheck); break;
+			case 14: DoQuestionType(Pokemons, ghost, pokemonToCheck); break;
+			case 15: DoQuestionEvolutionType(Pokemons, pokemonToCheck); break;
+			case 16: DoQuestionCharacteristics(Pokemons, twoLegs, pokemonToCheck); break;
+			case 17: DoQuestionCharacteristics(Pokemons, fourLegs, pokemonToCheck); break;
+			case 18: DoQuestionCharacteristics(Pokemons, noLegs, pokemonToCheck); break;
+			case 19: DoQuestionCharacteristics(Pokemons, hasTail, pokemonToCheck); break;
+			case 20: DoQuestionCharacteristics(Pokemons, legend, pokemonToCheck); break;
+			case 21: DoQuestionCharacteristics(Pokemons, hasArms, pokemonToCheck); break;
+			case 22: DoQuestionCharacteristics(Pokemons, starter, pokemonToCheck); break;
+			case 23: DoQuestionCharacteristics(Pokemons, middleStage, pokemonToCheck); break;
+			case 24: DoQuestionCharacteristics(Pokemons, secondStage, pokemonToCheck); break;
 		}
 
 		if (Pokemons.size() <= 1)
@@ -225,7 +120,9 @@ int main()
 	if (Pokemons.size() >= 1)
 	{
 		isInGame = false;
-		std::cout << "The Pokémon you are thinking of is..." << std::endl;
+		std::cout << std::endl;
+		std::cout << "--------------" << std::endl;
+		std::cout << "The Pokemon you are thinking of is..." << std::endl;
 		std::cin.get();
 		if (Pokemons.size() == 1)
 		{
@@ -233,6 +130,7 @@ int main()
 		}
 		else
 		{
+			// there is some pokemon with equal characteristics in list
 			// get random pokemon in list
 			std::uniform_int_distribution<> distrib(0, Pokemons.size() - 1);
 			int random_index = distrib(gen);
@@ -240,49 +138,51 @@ int main()
 			std::cout << randomPokemonInList.GetName() << "?" << std::endl;
 		}
 
-		int answere = 9;
+		std::string answer = "9";
 		do
 		{
-			std::cin >> answere;
-			if (answere == 1)
+			std::cin >> answer;
+			if (answer == "1")
 			{
-				std::cout << "I WON!" << std::endl;
+				WriteTextInEndMode("I WON!");
 				std::cin.get();
 			}
-			else if (answere == 0)
+			else if (answer == "0")
 			{
-				std::cout << "YOU WON..." << std::endl;
+				if (Pokemons.size() == 1)
+				{
+					WriteTextInEndMode("YOU ARE A LIAR!");
+					std::cout << "Admit that you lost!" << std::endl;
+					std::cout << "--------------" << std::endl;
+				}
+				else
+				{
+					WriteTextInEndMode("YOU WON...");
+				}
 			}
 			else
 			{
-				std::cout << "You don't want to admit that you lost?" << std::endl;
+				WriteTextInEndMode("You don't want to admit that you lost?");
 			}
-		} while (answere != 1 && answere != 0);
+		} 
+		while (answer != "1" && answer != "0");
 	}
 	else if (Pokemons.size() <= 0)
 	{
 		isInGame = false;
-		std::cout << "I THINK YOU'RE CHEATING!" << std::endl;
+		WriteTextInEndMode("I THINK YOU'RE CHEATING!");
 		std::cin.get();
 	}
 
+	// TEMP CHECK
 
-	//// check pokemon in list
-	//std::cin.get();
-	//for (MyPokemon pk : Pokemons)
-	//{
-	//	std::cout << pk.GetName() << std::endl;
-	//}
-
-
-
-	// CONTROLLI TEMPORANEI
+	//// To check the list of pokemons and question --> add this on code if you want to some check
 	//int temp = 0;
 	//std::cin >> temp;
 
 	//if (temp == 3)
 	//{
-	//	std::cout << "LISTA " << std::endl;
+	//	std::cout << "POKEMON LIST = " << std::endl;
 	//	std::cin.get();
 	//	for (MyPokemon pk : Pokemons)
 	//	{
@@ -291,12 +191,12 @@ int main()
 	//}
 	//else if (temp == 4)
 	//{
-	//	std::cout << "DOMANDE" << std::endl;
+	//	std::cout << "QUESTION LIST =" << std::endl;
 	//	std::cin.get();
+	//	std::sort(QuestionDone.begin(), QuestionDone.end());
 	//	for (int a : QuestionDone)
 	//	{
 	//		std::cout << a << " ";
 	//	}
 	//}
-	
 }

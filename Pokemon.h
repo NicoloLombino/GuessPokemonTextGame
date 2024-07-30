@@ -19,7 +19,6 @@ enum PokemonType
 	fight,
 	psychc,
 	rock,
-	steel,
 	ice,
 	ghost,
 	dragon

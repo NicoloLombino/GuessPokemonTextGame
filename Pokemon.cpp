@@ -4,22 +4,21 @@ std::string FromPkmnTypeToString(PokemonType pkmnTypeToUse)
 {
 	switch (pkmnTypeToUse)
 	{
-		case PokemonType::water: return "Acqua";
-		case PokemonType::fire: return "Fuoco";
-		case PokemonType::grass: return "Erba";
-		case PokemonType::poison: return "Veleno";
-		case PokemonType::flying: return "Volante";
-		case PokemonType::bug: return "Coleottero";
-		case PokemonType::normal: return "Normale";
-		case PokemonType::electr: return "Elettro";
-		case PokemonType::ground: return "Terra";
-		case PokemonType::fight: return "Lotta";
-		case PokemonType::psychc: return "Psico";
-		case PokemonType::rock: return "Roccia";
-		case PokemonType::steel: return "Acciaio";
-		case PokemonType::ice: return "Ghiaccio";
-		case PokemonType::ghost: return "Spettro";
-		case PokemonType::dragon: return "Drago";
+		case PokemonType::water: return "Water";
+		case PokemonType::fire: return "Fire";
+		case PokemonType::grass: return "Grass";
+		case PokemonType::poison: return "Poison";
+		case PokemonType::flying: return "Flying";
+		case PokemonType::bug: return "Bug";
+		case PokemonType::normal: return "Normal";
+		case PokemonType::electr: return "Electric";
+		case PokemonType::ground: return "Ground";
+		case PokemonType::fight: return "Fighting";
+		case PokemonType::psychc: return "Psychic";
+		case PokemonType::rock: return "Rock";
+		case PokemonType::ice: return "Ice";
+		case PokemonType::ghost: return "Ghost";
+		case PokemonType::dragon: return "Dragon";
 		case PokemonType::noType: return "None";
 	}
 }
@@ -29,8 +28,8 @@ std::string FromPkmnEvolutionTypeToString(PokemonEvolutionType pkmnEvolutionType
 	switch (pkmnEvolutionTypeToUse)
 	{
 		case PokemonEvolutionType::base: return "Base";
-		case PokemonEvolutionType::medium: return "Intermedio";
-		case PokemonEvolutionType::final: return "Finale";
+		case PokemonEvolutionType::medium: return "Middle-State";
+		case PokemonEvolutionType::final: return "Final";
 	}
 }
 

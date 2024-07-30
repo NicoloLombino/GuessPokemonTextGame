@@ -4,7 +4,7 @@
 
 
 
-
+// The Pokemon List
 std::vector<MyPokemon> CreatePkmnList()
 {
 	std::vector<MyPokemon> MyPokemonList;
@@ -88,8 +88,8 @@ std::vector<MyPokemon> CreatePkmnList()
 	MyPokemonList.push_back({ "Rapidash", {fire}, final, {fourLegs, hasTail} });
 	MyPokemonList.push_back({ "Slowpoke", {water, psychc}, base, {fourLegs, hasTail} });
 	MyPokemonList.push_back({ "Slowbro", {water, psychc}, final, {twoLegs, hasArms, hasTail} });
-	MyPokemonList.push_back({ "Magnemite", {electr, steel}, base, {noLegs} });
-	MyPokemonList.push_back({ "Magneton", {electr, steel}, final, {noLegs} });
+	MyPokemonList.push_back({ "Magnemite", {electr}, base, {noLegs} });
+	MyPokemonList.push_back({ "Magneton", {electr}, final, {noLegs} });
 	MyPokemonList.push_back({ "Farfetch'd", {normal, flying}, final, {hasTail, twoLegs} });
 	MyPokemonList.push_back({ "Doduo", {normal, flying}, base, {twoLegs} });
 	MyPokemonList.push_back({ "Dodrio", {normal, flying}, final, {twoLegs, hasTail} });
@@ -161,4 +161,95 @@ std::vector<MyPokemon> CreatePkmnList()
 	MyPokemonList.push_back({ "Mew", {psychc}, final, {twoLegs, hasArms, hasTail, legend} });
 
 	return MyPokemonList;
+}
+
+
+void CheckQuestionAndRemoveSimilar(std::vector<int> questionToRemove, std::vector<int>& QuestionDone)
+{
+	QuestionDone.insert(QuestionDone.end(), questionToRemove.begin(), questionToRemove.end());
+}
+
+bool CheckPokemonCharacteristics(MyPokemon& pokemonToCheck, std::vector<Characteristics> characteristicsToCkeck)
+{
+	for (Characteristics characteristics : characteristicsToCkeck)
+	{
+		if ((std::find(pokemonToCheck.pokemonCharacteristics.begin(), pokemonToCheck.pokemonCharacteristics.end(), characteristics) != pokemonToCheck.pokemonCharacteristics.end()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void CheckCharacteristicAndRemoveQuestion(std::vector<MyPokemon>& pokemonListToCheck, std::vector<int>& QuestionDone, Characteristics characteristicToChek, int questionToRemove)
+{
+	bool characteristicFound = false;
+
+	for (MyPokemon pokemon : pokemonListToCheck)
+	{
+		if ((std::find(pokemon.pokemonCharacteristics.begin(), pokemon.pokemonCharacteristics.end(), characteristicToChek) != pokemon.pokemonCharacteristics.end()))
+		{
+			characteristicFound = true;
+			break;
+		}
+	}
+	if (!characteristicFound)
+	{
+		if (!(std::find(QuestionDone.begin(), QuestionDone.end(), questionToRemove) != QuestionDone.end()))
+		{
+			QuestionDone.push_back(questionToRemove);
+		}
+	}
+}
+
+void CheckTypeAndRemoveQuestion(std::vector<MyPokemon>& pokemonListToCheck, std::vector<int>& QuestionDone, PokemonType typeToCheck, int questionToRemove)
+{
+	bool typeFound = false;
+
+	for (MyPokemon pokemon : pokemonListToCheck)
+	{
+		if ((std::find(pokemon.pokemonTypes.begin(), pokemon.pokemonTypes.end(), typeToCheck) != pokemon.pokemonTypes.end()))
+		{
+			typeFound = true;
+			break;
+		}
+	}
+	if (!typeFound)
+	{
+		if (!(std::find(QuestionDone.begin(), QuestionDone.end(), questionToRemove) != QuestionDone.end()))
+		{
+			QuestionDone.push_back(questionToRemove);
+		}
+	}
+}
+
+void CheckAllCharacteristicInPokemonList(std::vector<MyPokemon>& pokemonListToCheck, std::vector<int>& QuestionDone)
+{
+	// for each type, if the list don't contain this, is useless to ask
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, water, 0);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, fire, 1);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, grass, 2);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, flying, 3);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, bug, 4);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, normal, 5);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, electr, 6);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, ground, 7);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, fight, 8);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, psychc, 9);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, rock, 10);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, ice, 11);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, dragon, 12);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, poison, 13);
+	CheckTypeAndRemoveQuestion(pokemonListToCheck, QuestionDone, ghost, 14);
+
+	// for each characteristic, if the list don't contain this, is useless to ask
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, twoLegs, 16);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, fourLegs, 17);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, noLegs, 18);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, hasTail, 19);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, legend, 20);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, hasArms, 21);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, starter, 22);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, middleStage, 23);
+	CheckCharacteristicAndRemoveQuestion(pokemonListToCheck, QuestionDone, secondStage, 24);
 }
